@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社保云管家 - 让社保缴纳从此简单、安心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        accent: '#722ED1',
+                        warning: '#FF7D00',
+                        danger: '#F53F3F',
+                        success: '#00B42A',
+                        dark: '#1D2129',
+                        'gray-light': '#F2F3F5',
+                        'gray-medium': '#C9CDD4'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 4px 20px rgba(0, 0, 0, 0.08)',
+                        'hover': '0 8px 30px rgba(0, 0, 0, 0.12)',
+                    }
+                },
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .bg-gradient-primary {
+                background: linear-gradient(135deg, #165DFF 0%, #0E42D2 100%);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+        }
+    </style>
+</head>
+
+<body class="font-sans text-dark bg-gray-50">
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full top-0 z-50 transition-custom bg-white/95 shadow-sm backdrop-blur-sm">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- 品牌标识 -->
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center">
+                        <i class="fa fa-shield text-primary text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-primary">社保云管家</span>
+                    </a>
+                </div>
+                
+                <!-- 桌面导航 -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-dark hover:text-primary transition-custom">核心功能</a>
+                    <a href="#personal" class="text-dark hover:text-primary transition-custom">个人服务</a>
+                    <a href="#enterprise" class="text-dark hover:text-primary transition-custom">企业服务</a>
+                    <a href="#trust" class="text-dark hover:text-primary transition-custom">安全保障</a>
+                    <a href="#faq" class="text-dark hover:text-primary transition-custom">常见问题</a>
+                </nav>
+                
+                <!-- 登录/注册按钮 -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="#" class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary/5 transition-custom">登录</a>
+                    <a href="#" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-custom shadow-md hover:shadow-lg">免费注册</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="menuBtn" class="md:hidden text-dark focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-3 space-y-3">
+                <a href="#features" class="block py-2 text-dark hover:text-primary transition-custom">核心功能</a>
+                <a href="#personal" class="block py-2 text-dark hover:text-primary transition-custom">个人服务</a>
+                <a href="#enterprise" class="block py-2 text-dark hover:text-primary transition-custom">企业服务</a>
+                <a href="#trust" class="block py-2 text-dark hover:text-primary transition-custom">安全保障</a>
+                <a href="#faq" class="block py-2 text-dark hover:text-primary transition-custom">常见问题</a>
+                <div class="flex space-x-4 pt-2">
+                    <a href="#" class="flex-1 text-center px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary/5 transition-custom">登录</a>
+                    <a href="#" class="flex-1 text-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-custom">免费注册</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-32 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="w-full lg:w-1/2 mb-10 lg:mb-0">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-dark mb-6">
+                        让社保缴纳<br>
+                        <span class="text-primary">从此简单、安心</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-lg">
+                        为自由职业者、个体工商户和中小微企业提供一站式社保、公积金缴纳与管理服务平台
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#smart-guide" class="px-8 py-4 bg-primary text-white text-lg font-medium rounded-lg hover:bg-primary/90 transition-custom shadow-lg hover:shadow-xl text-center">
+                            开始测算
+                        </a>
+                        <a href="#how-it-works" class="px-8 py-4 border border-gray-300 text-dark text-lg font-medium rounded-lg hover:bg-gray-50 transition-custom flex items-center justify-center">
+                            <i class="fa fa-play-circle-o mr-2 text-primary"></i> 了解流程
+                        </a>
+                    </div>
+                    <div class="mt-8 flex items-center text-gray-500">
+                        <div class="flex -space-x-2">
+                            <img src="https://picsum.photos/id/1001/100" alt="用户头像" class="w-8 h-8 rounded-full border-2 border-white">
+                            <img src="https://picsum.photos/id/1002/100" alt="用户头像" class="w-8 h-8 rounded-full border-2 border-white">
+                            <img src="https://picsum.photos/id/1003/100" alt="用户头像" class="w-8 h-8 rounded-full border-2 border-white">
+                            <img src="https://picsum.photos/id/1004/100" alt="用户头像" class="w-8 h-8 rounded-full border-2 border-white">
+                        </div>
+                        <span class="ml-3">已有 <span class="text-primary font-semibold">10万+</span> 用户的信赖之选</span>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-custom">
+                        <img src="https://picsum.photos/id/1/600/400" alt="社保云管家平台展示" class="w-full h-auto">
+                    </div>
+                    <div class="absolute top-1/4 -right-4 w-24 h-24 bg-warning/20 rounded-full filter blur-2xl -z-10"></div>
+                    <div class="absolute bottom-1/3 -left-6 w-32 h-32 bg-primary/20 rounded-full filter blur-3xl -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 信任标识 -->
+    <section class="py-10 bg-white">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <p class="text-center text-gray-500 mb-6">受到行业领先企业和机构的信任</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70">
+                <div class="text-gray-400 text-xl font-bold">人力资源和社会保障部</div>
+                <div class="text-gray-400 text-xl font-bold">中国工商银行</div>
+                <div class="text-gray-400 text-xl font-bold">阿里云</div>
+                <div class="text-gray-400 text-xl font-bold">腾讯云</div>
+                <div class="text-gray-400 text-xl font-bold">平安保险</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心痛点 -->
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">解决社保缴纳的核心痛点</h2>
+                <p class="text-lg text-gray-600">我们深入理解用户在社保缴纳过程中的困难，提供针对性解决方案</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 痛点1 -->
+                <div class="bg-gray-light rounded-xl p-6 shadow-card hover:shadow-hover transition-custom transform hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-file-text-o text-primary text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">信息不对称与流程复杂</h3>
+                    <p class="text-gray-600">各地社保政策多变，流程繁琐，普通人难以理解和跟进，线上官方平台操作体验不佳</p>
+                </div>
+                
+                <!-- 痛点2 -->
+                <div class="bg-gray-light rounded-xl p-6 shadow-card hover:shadow-hover transition-custom transform hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-exclamation-triangle text-warning text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">社保断缴风险高</h3>
+                    <p class="text-gray-600">自由职业者、离职人员和小微企业容易因忙碌或疏忽导致社保断缴，影响各类资格</p>
+                </div>
+                
+                <!-- 痛点3 -->
+                <div class="bg-gray-light rounded-xl p-6 shadow-card hover:shadow-hover transition-custom transform hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-search text-accent text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">管理与查询不便</h3>
+                    <p class="text-gray-600">多地缴费记录混乱，缴费状态不透明，无法及时确认是否成功到账，缺乏安全感</p>
+                </div>
+                
+                <!-- 痛点4 -->
+                <div class="bg-gray-light rounded-xl p-6 shadow-card hover:shadow-hover transition-custom transform hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-danger/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-money text-danger text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">成本与效率问题</h3>
+                    <p class="text-gray-600">研究政策、办理手续耗费大量时间，代缴机构服务费不透明，存在隐形收费</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 智能参保向导 -->
+    <section id="smart-guide" class="py-20 bg-gray-light">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-full lg:w-1/2">
+                    <div class="relative">
+                        <div class="relative z-10 bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                            <h3 class="text-2xl font-bold mb-6">智能参保方案定制</h3>
+                            
+                            <form id="insurance-form" class="space-y-5">
+                                <!-- 所在城市（含中国境内所有城市） -->
+                                <div>
+                                    <label class="block text-gray-700 mb-2 font-medium">所在城市</label>
+                                    <div class="relative">
+                                        <select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none">
+                                            <option value="">请选择城市</option>
+                                            <!-- 直辖市 -->
+                                            <optgroup label="直辖市">
+                                                <option value="beijing">北京市</option>
+                                                <option value="shanghai">上海市</option>
+                                                <option value="tianjin">天津市</option>
+                                                <option value="chongqing">重庆市</option>
+                                            </optgroup>
+                                            <!-- 河北省 -->
+                                            <optgroup label="河北省">
+                                                <option value="shijiazhuang">石家庄市</option>
+                                                <option value="tangshan">唐山市</option>
+                                                <option value="qinhuangdao">秦皇岛市</option>
+                                                <option value="handan">邯郸市</option>
+                                                <option value="xingtai">邢台市</option>
+                                                <option value="baoding">保定市</option>
+                                                <option value="zhangjiakou">张家口市</option>
+                                                <option value="chengde">承德市</option>
+                                                <option value="cangzhou">沧州市</option>
+                                                <option value="langfang">廊坊市</option>
+                                                <option value=" Hengshui">衡水市</option>
+                                            </optgroup>
+                                            <!-- 山西省 -->
+                                            <optgroup label="山西省">
+                                                <option value="taiyuan">太原市</option>
+                                                <option value="datong">大同市</option>
+                                                <option value="yangquan">阳泉市</option>
+                                                <option value="changzhi">长治市</option>
+                                                <option value="jincheng">晋城市</option>
+                                                <option value="shuozhou">朔州市</option>
+                                                <option value="jinzhong">晋中市</option>
+                                                <option value="yuncheng">运城市</option>
+                                                <option value="xinzhou">忻州市</option>
+                                                <option value="linfen">临汾市</option>
+                                                <option value="luliang">吕梁市</option>
+                                            </optgroup>
+                                            <!-- 辽宁省 -->
+                                            <optgroup label="辽宁省">
+                                                <option value="shenyang">沈阳市</option>
+                                                <option value="dalian">大连市</option>
+                                                <option value="anshan">鞍山市</option>
+                                                <option value="fushun">抚顺市</option>
+                                                <option value="benxi">本溪市</option>
+                                                <option value="dandong">丹东市</option>
+                                                <option value="jinzhou">锦州市</option>
+                                                <option value="yingkou">营口市</option>
+                                                <option value="fuxin">阜新市</option>
+                                                <option value="liaoyang">辽阳市</option>
+                                                <option value="panjin">盘锦市</option>
+                                                <option value="tieling">铁岭市</option>
+                                                <option value="chaoyang">朝阳市</option>
+                                                <option value="huludao">葫芦岛市</option>
+                                            </optgroup>
+                                            <!-- 吉林省 -->
+                                            <optgroup label="吉林省">
+                                                <option value="changchun">长春市</option>
+                                                <option value="jilin">吉林市</option>
+                                                <option value="siping">四平市</option>
+                                                <option value="liaoyuan">辽源市</option>
+                                                <option value="tonghua">通化市</option>
+                                                <option value="baishan">白山市</option>
+                                                <option value="songyuan">松原市</option>
+                                                <option value="baicheng">白城市</option>
+                                                <option value="yanbian">延边朝鲜族自治州</option>
+                                            </optgroup>
+                                            <!-- 黑龙江省 -->
+                                            <optgroup label="黑龙江省">
+                                                <option value="haerbin">哈尔滨市</option>
+                                                <option value="qiqihaer">齐齐哈尔市</option>
+                                                <option value="jixi">鸡西市</option>
+                                                <option value="hegang">鹤岗市</option>
+                                                <option value="shuangyashan">双鸭山市</option>
+                                                <option value="daqing">大庆市</option>
+                                                <option value="yichun">伊春市</option>
+                                                <option value="jiamusi">佳木斯市</option>
+                                                <option value="qitaihe">七台河市</option>
+                                                <option value="mudanjiang">牡丹江市</option>
+                                                <option value="heihe">黑河市</option>
+                                                <option value="suihua">绥化市</option>
+                                                <option value="daxinganling">大兴安岭地区</option>
+                                            </optgroup>
+                                            <!-- 江苏省 -->
+                                            <optgroup label="江苏省">
+                                                <option value="nanjing">南京市</option>
+                                                <option value="wuxi">无锡市</option>
+                                                <option value="xuzhou">徐州市</option>
+                                                <option value="changzhou">常州市</option>
+                                                <option value="suzhou">苏州市</option>
+                                                <option value="nantong">南通市</option>
+                                                <option value="lianyungang">连云港市</option>
+                                                <option value="huai'an">淮安市</option>
+                                                <option value="yancheng">盐城市</option>
+                                                <option value="yangzhou">扬州市</option>
+                                                <option value="zhenjiang">镇江市</option>
+                                                <option value="taizhou">泰州市</option>
+                                                <option value="suqian">宿迁市</option>
+                                            </optgroup>
+                                            <!-- 浙江省 -->
+                                            <optgroup label="浙江省">
+                                                <option value="hangzhou">杭州市</option>
+                                                <option value="ningbo">宁波市</option>
+                                                <option value="wenzhou">温州市</option>
+                                                <option value="jiaxing">嘉兴市</option>
+                                                <option value="huzhou">湖州市</option>
+                                                <option value="shaoxing">绍兴市</option>
+                                                <option value="jinhua">金华市</option>
+                                                <option value="quzhou">衢州市</option>
+                                                <option value="zhoushan">舟山市</option>
+                                                <option value="taizhou">台州市</option>
+                                                <option value="lishui">丽水市</option>
+                                            </optgroup>
+                                            <!-- 安徽省 -->
+                                            <optgroup label="安徽省">
+                                                <option value="hefei">合肥市</option>
+                                                <option value="wuhu">芜湖市</option>
+                                                <option value="bengbu">蚌埠市</option>
+                                                <option value="huainan">淮南市</option>
+                                                <option value="maanshan">马鞍山市</option>
+                                                <option value="huaibei">淮北市</option>
+                                                <option value="tongling">铜陵市</option>
+                                                <option value="anqing">安庆市</option>
+                                                <option value="huangshan">黄山市</option>
+                                                <option value="chuzhou">滁州市</option>
+                                                <option value="fuyang">阜阳市</option>
+                                                <option value="suzhou-ah">宿州市</option>
+                                                <option value="liuan">六安市</option>
+                                                <option value="bozhou">亳州市</option>
+                                                <option value="chizhou">池州市</option>
+                                                <option value="xuancheng">宣城市</option>
+                                            </optgroup>
+                                            <!-- 福建省 -->
+                                            <optgroup label="福建省">
+                                                <option value="fuzhou">福州市</option>
+                                                <option value="xiamen">厦门市</option>
+                                                <option value="putian">莆田市</option>
+                                                <option value="sanming">三明市</option>
+                                                <option value="quanzhou">泉州市</option>
+                                                <option value="zhangzhou">漳州市</option>
+                                                <option value="nanping">南平市</option>
+                                                <option value="longyan">龙岩市</option>
+                                                <option value="ningde">宁德市</option>
+                                            </optgroup>
+                                            <!-- 江西省 -->
+                                            <optgroup label="江西省">
+                                                <option value="nanchang">南昌市</option>
+                                                <option value="jingdezhen">景德镇市</option>
+                                                <option value="pingxiang">萍乡市</option>
+                                                <option value="jiujiang">九江市</option>
+                                                <option value="xinyu">新余市</option>
+                                                <option value="yingtan">鹰潭市</option>
+                                                <option value="ganzhou">赣州市</option>
+                                                <option value="yichun">宜春市</option>
+                                                <option value="jiangxi-fuzhou">抚州市</option>
+                                                <option value="ji'an">吉安市</option>
+                                                <option value="shangrao">上饶市</option>
+                                            </optgroup>
+                                            <!-- 山东省 -->
+                                            <optgroup label="山东省">
+                                                <option value="jinan">济南市</option>
+                                                <option value="qingdao">青岛市</option>
+                                                <option value="zibo">淄博市</option>
+                                                <option value="zaozhuang">枣庄市</option>
+                                                <option value="dongying">东营市</option>
+                                                <option value="yantai">烟台市</option>
+                                                <option value="weifang">潍坊市</option>
+                                                <option value="jining">济宁市</option>
+                                                <option value="taian">泰安市</option>
+                                                <option value="weihai">威海市</option>
+                                                <option value="rizhao">日照市</option>
+                                                <option value="laiwu">莱芜区（济南市）</option>
+                                                <option value="linyi">临沂市</option>
+                                                <option value="dezhou">德州市</option>
+                                                <option value="liaocheng">聊城市</option>
+                                                <option value="binzhou">滨州市</option>
+                                                <option value="heze">菏泽市</option>
+                                            </optgroup>
+                                            <!-- 河南省 -->
+                                            <optgroup label="河南省">
+                                                <option value="zhengzhou">郑州市</option>
+                                                <option value="kaifeng">开封市</option>
+                                                <option value="luoyang">洛阳市</option>
+                                                <option value="pingdingshan">平顶山市</option>
+                                                <option value="anyang">安阳市</option>
+                                                <option value="hebi">鹤壁市</option>
+                                                <option value="xinxiang">新乡市</option>
+                                                <option value="jiaozuo">焦作市</option>
+                                                <option value="puyang">濮阳市</option>
+                                                <option value="xuchang">许昌市</option>
+                                                <option value="luohe">漯河市</option>
+                                                <option value="sanmenxia">三门峡市</option>
+                                                <option value="nanyang">南阳市</option>
+                                                <option value="shangqiu">商丘市</option>
+                                                <option value="xinyang">信阳市</option>
+                                                <option value="zhoukou">周口市</option>
+                                                <option value="zhumadian">驻马店市</option>
+                                                <option value="jiyuan">济源示范区</option>
+                                            </optgroup>
+                                            <!-- 湖北省 -->
+                                            <optgroup label="湖北省">
+                                                <option value="wuhan">武汉市</option>
+                                                <option value="huangshi">黄石市</option>
+                                                <option value="shiyan">十堰市</option>
+                                                <option value="yichang">宜昌市</option>
+                                                <option value="xiangyang">襄阳市</option>
+                                                <option value="鄂州">鄂州市</option>
+                                                <option value="jingmen">荆门市</option>
+                                                <option value="xiaogan">孝感市</option>
+                                                <option value="jingzhou">荆州市</option>
+                                                <option value="huanggang">黄冈市</option>
+                                                <option value="xianning">咸宁市</option>
+                                                <option value="suizhou">随州市</option>
+                                                <option value="enshi">恩施土家族苗族自治州</option>
+                                                <option value="tianmen">天门市</option>
+                                                <option value="qianjiang">潜江市</option>
+                                                <option value="xiantao">仙桃市</option>
+                                                <option value="shennongjia">神农架林区</option>
+                                            </optgroup>
+                                            <!-- 湖南省 -->
+                                            <optgroup label="湖南省">
+                                                <option value="changsha">长沙市</option>
+                                                <option value="zhuzhou">株洲市</option>
+                                                <option value="xiangtan">湘潭市</option>
+                                                <option value=" Hengyang">衡阳市</option>
+                                                <option value="shaoyang">邵阳市</option>
+                                                <option value="yueyang">岳阳市</option>
+                                                <option value="changde">常德市</option>
+                                                <option value="zhangjiajie">张家界市</option>
+                                                <option value="yiyang">益阳市</option>
+                                                <option value="chenzhou">郴州市</option>
+                                                <option value="yongzhou">永州市</option>
+                                                <option value="huaihua">怀化市</option>
+                                                <option value="loudi">娄底市</option>
+                                                <option value="xiangxi">湘西土家族苗族自治州</option>
+                                            </optgroup>
+                                            <!-- 广东省 -->
+                                            <optgroup label="广东省">
+                                                <option value="guangzhou">广州市</option>
+                                                <option value="shenzhen">深圳市</option>
+                                                <option value="zhuhai">珠海市</option>
+                                                <option value="shantou">汕头市</option>
+                                                <option value="foshan">佛山市</option>
+                                                <option value="shaoguan">韶关市</option>
+                                                <option value="zhanjiang">湛江市</option>
+                                                <option value="zhaoqing">肇庆市</option>
+                                                <option value="jiangmen">江门市</option>
+                                                <option value="maoming">茂名市</option>
+                                                <option value="huizhou">惠州市</option>
+                                                <option value="meizhou">梅州市</option>
+                                                <option value="shanwei">汕尾市</option>
+                                                <option value="hezhou">河源市</option>
+                                                <option value="yangjiang">阳江市</option>
+                                                <option value="qingyuan">清远市</option>
+                                                <option value="dongguan">东莞市</option>
+                                                <option value="zhongshan">中山市</option>
+                                                <option value="chaoshan">潮州市</option>
+                                                <option value="jieyang">揭阳市</option>
+                                                <option value="yunfu">云浮市</option>
+                                            </optgroup>
+                                            <!-- 海南省 -->
+                                            <optgroup label="海南省">
+                                                <option value="haikou">海口市</option>
+                                                <option value="sanya">三亚市</option>
+                                                <option value="sansha">三沙市</option>
+                                                <option value="danzhou">儋州市</option>
+                                                <option value="wuzhishan">五指山市</option>
+                                                <option value="qionghai">琼海市</option>
+                                                <option value="wanning">万宁市</option>
+                                                <option value="wenchang">文昌市</option>
+                                                <option value="lingshui">陵水黎族自治县</option>
+                                                <option value="ledong">乐东黎族自治县</option>
+                                                <option value="baoting">保亭黎族苗族自治县</option>
+                                                <option value="qiongzhong">琼中黎族苗族自治县</option>
+                                                <option value="ding'an">定安县</option>
+                                                <option value="tunchang">屯昌县</option>
+                                                <option value="chengmai">澄迈县</option>
+                                                <option value="lingao">临高县</option>
+                                                <option value="baisha">白沙黎族自治县</option>
+                                                <option value="changjiang">昌江黎族自治县</option>
+                                            </optgroup>
+                                            <!-- 四川省 -->
+                                            <optgroup label="四川省">
+                                                <option value="chengdu">成都市</option>
+                                                <option value="zigong">自贡市</option>
+                                                <option value="panzhihua">攀枝花市</option>
+                                                <option value="luzhou">泸州市</option>
+                                                <option value="deyang">德阳市</option>
+                                                <option value="miyang">绵阳市</option>
+                                                <option value="guangyuan">广元市</option>
+                                                <option value="suining">遂宁市</option>
+                                                <option value="neijiang">内江市</option>
+                                                <option value="leshan">乐山市</option>
+                                                <option value="nanchong">南充市</option>
+                                                <option value="meishan">眉山市</option>
+                                                <option value="yibin">宜宾市</option>
+                                                <option value="guangan">广安市</option>
+                                                <option value="dazhou">达州市</option>
+                                                <option value="ya'an">雅安市</option>
+                                                <option value="bazhong">巴中市</option>
+                                                <option value="ziyang">资阳市</option>
+                                                <option value="aba">阿坝藏族羌族自治州</option>
+                                                <option value="ganzi">甘孜藏族自治州</option>
+                                                <option value="liangshan">凉山彝族自治州</option>
+                                            </optgroup>
+                                            <!-- 贵州省 -->
+                                            <optgroup label="贵州省">
+                                                <option value="guiyang">贵阳市</option>
+                                                <option value="zunyi">遵义市</option>
+                                                <option value="liupanshui">六盘水市</option>
+                                                <option value="anshun">安顺市</option>
+                                                <option value="bijie">毕节市</option>
+                                                <option value="qianxinan">黔西南布依族苗族自治州</option>
+                                                <option value="qiannan">黔南布依族苗族自治州</option>
+                                                <option value="qiandongnan">黔东南苗族侗族自治州</option>
+                                            </optgroup>
+                                            <!-- 云南省 -->
+                                            <optgroup label="云南省">
+                                                <option value="kunming">昆明市</option>
+                                                <option value="qujing">曲靖市</option>
+                                                <option value="yuxi">玉溪市</option>
+                                                <option value="baoshan">保山市</option>
+                                                <option value="zhaotong">昭通市</option>
+                                                <option value="lijiang">丽江市</option>
+                                                <option value="puer">普洱市</option>
+                                                <option value="lincang">临沧市</option>
+                                                <option value="chuxiong">楚雄彝族自治州</option>
+                                                <option value="honghe">红河哈尼族彝族自治州</option>
+                                                <option value="wenshan">文山壮族苗族自治州</option>
+                                                <option value="xishuangbanna">西双版纳傣族自治州</option>
+                                                <option value="dali">大理白族自治州</option>
+                                                <option value="dehong">德宏傣族景颇族自治州</option>
+                                                <option value="nujiang">怒江傈僳族自治州</option>
+                                                <option value="diqing">迪庆藏族自治州</option>
+                                            </optgroup>
+                                            <!-- 陕西省 -->
+                                            <optgroup label="陕西省">
+                                                <option value="xian">西安市</option>
+                                                <option value="baoji">宝鸡市</option>
+                                                <option value="xianyang">咸阳市</option>
+                                                <option value="weinan">渭南市</option>
+                                                <option value="yanan">延安市</option>
+                                                <option value="hanzhong">汉中市</option>
+                                                <option value="yulin">榆林市</option>
+                                                <option value="ankang">安康市</option>
+                                                <option value="shangluo">商洛市</option>
+                                            </optgroup>
+                                            <!-- 甘肃省 -->
+                                            <optgroup label="甘肃省">
+                                                <option value="lanzhou">兰州市</option>
+                                                <option value="tianzhu">天水市</option>
+                                                <option value="jiuquan">酒泉市</option>
+                                                <option value="zhangye">张掖市</option>
+                                                <option value="pingliang">平凉市</option>
+                                                <option value="qingyang">庆阳市</option>
+                                                <option value="dingxi">定西市</option>
+                                                <option value="longnan">陇南市</option>
+                                                <option value="linxia">临夏回族自治州</option>
+                                                <option value="gannan">甘南藏族自治州</option>
+                                                <option value="baiyin">白银市</option>
+                                                <option value="jinchang">金昌市</option>
+                                                <option value="wuwei">武威市</option>
+                                                <option value="dingxi">定西市</option>
+                                            </optgroup>
+                                            <!-- 青海省 -->
+                                            <optgroup label="青海省">
+                                                <option value="xining">西宁市</option>
+                                                <option value="haidong">海东市</option>
+                                                <option value="haibei">海北藏族自治州</option>
+                                                <option value="huangnan">黄南藏族自治州</option>
+                                                <option value="海南">海南藏族自治州</option>
+                                                <option value="golog">果洛藏族自治州</option>
+                                                <option value="yushu">玉树藏族自治州</option>
+                                                <option value="haixi">海西蒙古族藏族自治州</option>
+                                            </optgroup>
+                                            <!-- 台湾省 -->
+                                            <optgroup label="台湾省">
+                                                <option value="taipei">台北市</option>
+                                                <option value="kaohsiung">高雄市</option>
+                                                <option value="taichung">台中市</option>
+                                                <option value="tainan">台南市</option>
+                                                <option value="keelung">基隆市</option>
+                                                <option value="hsinchu">新竹市</option>
+                                                <option value="chiayi">嘉义市</option>
+                                                <option value="newtaipei">新北市</option>
+                                                <option value="hsinchu-county">新竹县</option>
+                                                <option value="miaoli">苗栗县</option>
+                                                <option value="changhua">彰化县</option>
+                                                <option value="nantou">南投县</option>
+                                                <option value="yunlin">云林县</option>
+                                                <option value="chiayi-county">嘉义县</option>
+                                                <option value="tainan-county">台南县</option>
+                                                <option value="pingdong">屏东县</option>
+                                                <option value="taitung">台东县</option>
+                                                <option value="hualien">花莲县</option>
+                                                <option value="yilan">宜兰县</option>
+                                                <option value="kinmen">金门县</option>
+                                                <option value="lienchiang">连江县</option>
+                                            </optgroup>
+                                            <!-- 内蒙古自治区 -->
+                                            <optgroup label="内蒙古自治区">
+                                                <option value="huhehaote">呼和浩特市</option>
+                                                <option value="baotou">包头市</option>
+                                                <option value="wuhai">乌海市</option>
+                                                <option value="chifeng">赤峰市</option>
+                                                <option value="tongliao">通辽市</option>
+                                                <option value="eerduosi">鄂尔多斯市</option>
+                                                <option value="hulunbuir">呼伦贝尔市</option>
+                                                <option value="bayannaoer">巴彦淖尔市</option>
+                                                <option value="wulanchabu">乌兰察布市</option>
+                                                <option value="xingan">兴安盟</option>
+                                                <option value="xilinguole">锡林郭勒盟</option>
+                                                <option value="alashan">阿拉善盟</option>
+                                            </optgroup>
+                                            <!-- 广西壮族自治区 -->
+                                            <optgroup label="广西壮族自治区">
+                                                <option value="nanning-gx">南宁市</option>
+                                                <option value="liuzhou">柳州市</option>
+                                                <option value="guilin">桂林市</option>
+                                                <option value="wuzhou">梧州市</option>
+                                                <option value="beihai">北海市</option>
+                                                <option value="fangchenggang">防城港市</option>
+                                                <option value="qinzhou">钦州市</option>
+                                                <option value="guigang">贵港市</option>
+                                                <option value="yulin-gx">玉林市</option>
+                                                <option value="bose">百色市</option>
+                                                <option value="hezhou-gx">贺州市</option>
+                                                <option value="hechi">河池市</option>
+                                                <option value="laibin">来宾市</option>
+                                                <option value="崇左">崇左市</option>
+                                            </optgroup>
+                                            <!-- 西藏自治区 -->
+                                            <optgroup label="西藏自治区">
+                                                <option value="lasa">拉萨市</option>
+                                                <option value="xigaze">日喀则市</option>
+                                                <option value="shannan">山南市</option>
+                                                <option value="naqu">那曲市</option>
+                                                <option value="ali">阿里地区</option>
+                                                <option value="linzhi">林芝市</option>
+                                            </optgroup>
+                                            <!-- 宁夏回族自治区 -->
+                                            <optgroup label="宁夏回族自治区">
+                                                <option value="yinchuan">银川市</option>
+                                                <option value="shizuishan">石嘴山市</option>
+                                                <option value="wuzhong">吴忠市</option>
+                                                <option value="guyuan">固原市</option>
+                                                <option value="zhongwei">中卫市</option>
+                                            </optgroup>
+                                            <!-- 新疆维吾尔自治区 -->
+                                            <optgroup label="新疆维吾尔自治区">
+                                                <option value="urumqi">乌鲁木齐市</option>
+                                                <option value="kelamayi">克拉玛依市</option>
+                                                <option value="shihezi">石河子市</option>
+                                                <option value="bayingolin">巴音郭楞蒙古自治州</option>
+                                                <option value="changji">昌吉回族自治州</option>
+                                                <option value="kizilsu">克孜勒苏柯尔克孜自治州</option>
+                                                <option value="hotan">和田地区</option>
+                                                <option value="hami">哈密市</option>
+                                                <option value="turpan">吐鲁番市</option>
+                                                <option value="aksu">阿克苏地区</option>
+                                                <option value="喀什">喀什地区</option>
+                                                <option value="kezhou">克孜勒苏柯尔克孜自治州</option>
+                                                <option value="伊犁">伊犁哈萨克自治州</option>
+                                                <option value="塔城">塔城地区</option>
+                                                <option value="altay">阿勒泰地区</option>
+                                                <option value="tumushuke">图木舒克市</option>
+                                                <option value="阿拉尔">阿拉尔市</option>
+                                                <option value="wujiaqu">五家渠市</option>
+                                                <option value="bingtuan">新疆生产建设兵团</option>
+                                            </optgroup>
+                                            <!-- 香港特别行政区 -->
+                                            <optgroup label="香港特别行政区">
+                                                <option value="hongkong">香港岛</option>
+                                                <option value="kowloon">九龙</option>
+                                                <option value="newterritories">新界</option>
+                                            </optgroup>
+                                            <!-- 澳门特别行政区 -->
+                                            <optgroup label="澳门特别行政区">
+                                                <option value="macau">澳门半岛</option>
+                                                <option value="taipa">氹仔岛</option>
+                                                <option value="coloane">路环岛</option>
+                                                <option value="cotai">路氹城</option>
+                                            </optgroup>
+                                        </select>
+                                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                            <i class="fa fa-chevron-down text-gray-400"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 身份类型 -->
+                                <div>
+                                    <label class="block text-gray-700 mb-2 font-medium">您的身份</label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <label class="border border-gray-300 rounded-lg p-3 cursor-pointer hover:border-primary transition-custom">
+                                            <input type="radio" name="identity" class="mr-2 text-primary">
+                                            <span>自由职业者</span>
+                                        </label>
+                                        <label class="border border-gray-300 rounded-lg p-3 cursor-pointer hover:border-primary transition-custom">
+                                            <input type="radio" name="identity" class="mr-2 text-primary">
+                                            <span>离职人员</span>
+                                        </label>
+                                        <label class="border border-gray-300 rounded-lg p-3 cursor-pointer hover:border-primary transition-custom">
+                                            <input type="radio" name="identity" class="mr-2 text-primary">
+                                            <span>个体工商户</span>
+                                        </label>
+                                        <label class="border border-gray-300 rounded-lg p-3 cursor-pointer hover:border-primary transition-custom">
+                                            <input type="radio" name="identity" class="mr-2 text-primary">
+                                            <span>企业主</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- 月收入 -->
+                                <div>
+                                    <label class="block text-gray-700 mb-2 font-medium">月收入(元)</label>
+                                    <input type="number" placeholder="请输入您的月收入" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                                </div>
+                                
+                                <!-- 已有社保 -->
+                                <div>
+                                    <label class="block text-gray-700 mb-2 font-medium">是否已有社保</label>
+                                    <div class="flex space-x-4">
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="hasInsurance" value="yes" class="mr-2 text-primary">
+                                            <span>是</span>
+                                        </label>
+                                        <label class="flex items-center cursor-pointer">
+                                            <input type="radio" name="hasInsurance" value="no" class="mr-2 text-primary">
+                                            <span>否</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <button type="button" class="w-full py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-custom shadow-md hover:shadow-lg">
+                                    获取最佳参保方案
+                                </button>
+                            </form>
+                        </div>
+                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary/20 rounded-full filter blur-3xl -z-10"></div>
+                    </div>
+                </div>
+                
+                <div class="w-full lg:w-1/2">
+                    <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-6">智能参保向导与方案定制</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        只需几步简单操作，输入基本信息，系统即可智能推荐最适合您的参保方案，透明展示各项费用明细。
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-primary font-semibold">1</span>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-xl font-semibold mb-2">智能参保计算器</h3>
+                                <p class="text-gray-600">透明展示不同缴费基数下的个人、企业应缴金额、服务费以及总费用，让您明明白白消费。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-primary font-semibold">2</span>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-xl font-semibold mb-2">多种方案对比</h3>
+                                <p class="text-gray-600">提供灵活就业身份参保和平台合作企业代缴两种核心方案，根据您的情况推荐最优选择。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-primary font-semibold">3</span>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-xl font-semibold mb-2">政策知识库</h3>
+                                <p class="text-gray-600">用通俗易懂的图文、视频解释各地社保政策，特别是关于购房、落户、子女教育等资格要求。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 一键参保与自动化管理 -->
+    <section id="how-it-works" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">简单四步，搞定社保缴纳</h2>
+                <p class="text-lg text-gray-600">简化参保流程，实现自动化续费和断缴预警，把您从繁琐的操作中解放出来</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 步骤1 -->
+                <div class="text-center relative">
+                    <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-user-circle-o text-primary text-3xl"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto -mt-3 relative z-10">
+                        <span class="font-bold">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-6 mb-3">身份认证</h3>
+                    <p class="text-gray-600">在线完成身份认证，上传身份证等必要资料，全程无纸化</p>
+                    
+                    <!-- 连接线 -->
+                    <div class="hidden lg:block absolute top-10 right-[-2rem] w-[4rem] h-0.5 bg-gray-medium"></div>
+                </div>
+                
+                <!-- 步骤2 -->
+                <div class="text-center relative">
+                    <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-file-text text-primary text-3xl"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto -mt-3 relative z-10">
+                        <span class="font-bold">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-6 mb-3">方案确认</h3>
+                    <p class="text-gray-600">选择适合您的参保方案，在线签署服务协议，简单便捷</p>
+                    
+                    <!-- 连接线 -->
+                    <div class="hidden lg:block absolute top-10 right-[-2rem] w-[4rem] h-0.5 bg-gray-medium"></div>
+                </div>
+                
+                <!-- 步骤3 -->
+                <div class="text-center relative">
+                    <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-credit-card text-primary text-3xl"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto -mt-3 relative z-10">
+                        <span class="font-bold">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-6 mb-3">支付设置</h3>
+                    <p class="text-gray-600">绑定微信、支付宝或银行卡，开通自动按月扣款服务</p>
+                    
+                    <!-- 连接线 -->
+                    <div class="hidden lg:block absolute top-10 right-[-2rem] w-[4rem] h-0.5 bg-gray-medium"></div>
+                </div>
+                
+                <!-- 步骤4 -->
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-check-circle text-primary text-3xl"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto -mt-3 relative z-10">
+                        <span class="font-bold">4</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-6 mb-3">完成参保</h3>
+                    <p class="text-gray-600">系统自动为您办理参保手续，实时推送进度，随时查看</p>
+                </div>
+            </div>
+            
+            <!-- 自动化管理特点 -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-light rounded-xl p-6">
+                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-refresh text-primary text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">自动续费功能</h3>
+                    <p class="text-gray-600">开通自动按月扣款服务，从根源上避免忘记缴费导致断缴</p>
+                </div>
+                
+                <div class="bg-gray-light rounded-xl p-6">
+                    <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-bell text-warning text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">智能提醒系统</h3>
+                    <p class="text-gray-600">多渠道发送提醒，包括扣款前通知、缴费成功确认、政策变动提醒</p>
+                </div>
+                
+                <div class="bg-gray-light rounded-xl p-6">
+                    <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-shield text-success text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">断缴守护服务</h3>
+                    <p class="text-gray-600">设置"守护期"，例如离职后自动续缴1-3个月，找到新工作后无缝衔接</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 个人社保中心 -->
+    <section id="personal" class="py-20 bg-gray-light">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-12">
+                <div class="w-full lg:w-1/2">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                        <div class="bg-primary text-white p-6">
+                            <h3 class="text-2xl font-bold">个人社保中心</h3>
+                            <p>您的社保状况一目了然</p>
+                        </div>
+                        
+                        <div class="p-6">
+                            <!-- 社保状态概览 -->
+                            <div class="grid grid-cols-3 gap-4 mb-8">
+                                <div class="bg-gray-light rounded-lg p-4 text-center">
+                                    <p class="text-gray-500 text-sm mb-1">养老累计</p>
+                                    <p class="text-2xl font-bold text-primary">58个月</p>
+                                </div>
+                                <div class="bg-gray-light rounded-lg p-4 text-center">
+                                    <p class="text-gray-500 text-sm mb-1">医疗累计</p>
+                                    <p class="text-2xl font-bold text-primary">58个月</p>
+                                </div>
+                                <div class="bg-gray-light rounded-lg p-4 text-center">
+                                    <p class="text-gray-500 text-sm mb-1">当前状态</p>
+                                    <p class="text-2xl font-bold text-success">正常缴费</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 缴费日历 -->
+                            <div class="mb-8">
+                                <h4 class="font-semibold text-lg mb-4">缴费日历</h4>
+                                <div class="grid grid-cols-7 gap-2 text-center">
+                                    <div class="text-gray-500 text-sm">1月</div>
+                                    <div class="text-gray-500 text-sm">2月</div>
+                                    <div class="text-gray-500 text-sm">3月</div>
+                                    <div class="text-gray-500 text-sm">4月</div>
+                                    <div class="text-gray-500 text-sm">5月</div>
+                                    <div class="text-gray-500 text-sm">6月</div>
+                                    <div class="text-gray-500 text-sm">7月</div>
+                                    
+                                    <div class="w-10 h-10 rounded-full bg-success/20 text-success flex items-center justify-center mx-auto">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-success/20 text-success flex items-center justify-center mx-auto">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-success/20 text-success flex items-center justify-center mx-auto">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-success/20 text-success flex items-center justify-center mx-auto">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-success/20 text-success flex items-center justify-center mx-auto">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-success/20 text-success flex items-center justify-center mx-auto">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center mx-auto">
+                                        <span>今</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 社保待遇估算 -->
+                            <div>
+                                <h4 class="font-semibold text-lg mb-4">社保待遇估算</h4>
+                                <div class="h-40">
+                                    <canvas id="benefitChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full lg:w-1/2">
+                    <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-6">个人社保中心</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        打造一个清晰、可视化的个人社保数据面板，让您对自己的社保资产一目了然，随时掌握社保状态。
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa fa-calendar-check-o text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-xl font-semibold mb-2">缴费日历</h3>
+                                <p class="text-gray-600">清晰展示每月的缴费状态（待缴、已缴、失败），并可一键生成缴费记录长图，方便分享或存档。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa fa-database text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-xl font-semibold mb-2">官方数据同步</h3>
+                                <p class="text-gray-600">在获得您授权后，通过API接口同步官方社保系统的缴费记录，让您在一个平台就能看到所有历史记录。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa fa-line-chart text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-xl font-semibold mb-2">权益估算器</h3>
+                                <p class="text-gray-600">根据您的累计缴费年限和金额，初步估算未来的养老金待遇、医疗报销额度等，直观感受社保价值。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fa fa-file-pdf-o text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-xl font-semibold mb-2">电子证明下载</h3>
+                                <p class="text-gray-600">提供在线申请和下载社保缴费证明、完税证明等常用文件的功能，无需再跑社保局。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 企业服务专区 -->
+    <section id="enterprise" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">企业服务专区</h2>
+                <p class="text-lg text-gray-600">为没有专职HR的小微企业提供轻量级的员工社保管理SaaS服务</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 左侧：功能列表 -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="bg-gray-light rounded-xl p-6 hover:shadow-card transition-custom">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fa fa-users text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">员工管理</h3>
+                        </div>
+                        <p class="mt-3 text-gray-600 ml-14">轻松为员工办理增员、减员、缴费基数变更等操作，无需繁琐手续</p>
+                    </div>
+                    
+                    <div class="bg-gray-light rounded-xl p-6 hover:shadow-card transition-custom">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fa fa-money text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">薪酬社保一体化</h3>
+                        </div>
+                        <p class="mt-3 text-gray-600 ml-14">自动根据员工薪资计算社保、公积金、个税，一键生成工资条</p>
+                    </div>
+                    
+                    <div class="bg-gray-light rounded-xl p-6 hover:shadow-card transition-custom">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fa fa-gavel text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">合规咨询</h3>
+                        </div>
+                        <p class="mt-3 text-gray-600 ml-14">提供在线劳动法、社保政策咨询服务，帮助企业规避用工风险</p>
+                    </div>
+                    
+                    <div class="bg-gray-light rounded-xl p-6 hover:shadow-card transition-custom">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fa fa-bar-chart text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">数据分析报表</h3>
+                        </div>
+                        <p class="mt-3 text-gray-600 ml-14">生成各类社保、薪酬分析报表，为企业决策提供数据支持</p>
+                    </div>
+                </div>
+                
+                <!-- 右侧：企业版界面展示 -->
+                <div class="lg:col-span-2 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+                    <div class="bg-gray-800 text-white p-4 flex items-center justify-between">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="text-sm">社保云管家 - 企业管理后台</div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold">企业员工社保管理</h3>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm hover:bg-primary/90 transition-custom">
+                                <i class="fa fa-plus mr-1"></i> 添加员工
+                            </button>
+                        </div>
+                        
+                        <!-- 员工表格 -->
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead>
+                                    <tr class="bg-gray-100 text-left">
+                                        <th class="py-3 px-4 font-semibold">员工姓名</th>
+                                        <th class="py-3 px-4 font-semibold">身份证号</th>
+                                        <th class="py-3 px-4 font-semibold">社保状态</th>
+                                        <th class="py-3 px-4 font-semibold">缴费基数</th>
+                                        <th class="py-3 px-4 font-semibold">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-3 px-4">张三</td>
+                                        <td class="py-3 px-4">310********1234</td>
+                                        <td class="py-3 px-4"><span class="px-2 py-1 bg-success/20 text-success rounded-full text-sm">正常缴费</span></td>
+                                        <td class="py-3 px-4">12000元</td>
+                                        <td class="py-3 px-4">
+                                            <button class="text-primary hover:text-primary/80 mr-3">详情</button>
+                                            <button class="text-warning hover:text-warning/80">变更</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-3 px-4">李四</td>
+                                        <td class="py-3 px-4">310********5678</td>
+                                        <td class="py-3 px-4"><span class="px-2 py-1 bg-success/20 text-success rounded-full text-sm">正常缴费</span></td>
+                                        <td class="py-3 px-4">10000元</td>
+                                        <td class="py-3 px-4">
+                                            <button class="text-primary hover:text-primary/80 mr-3">详情</button>
+                                            <button class="text-warning hover:text-warning/80">变更</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4">王五</td>
+                                        <td class="py-3 px-4">310********9012</td>
+                                        <td class="py-3 px-4"><span class="px-2 py-1 bg-warning/20 text-warning rounded-full text-sm">
